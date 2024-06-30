@@ -2,6 +2,7 @@ import React from "react"
 import Button from "./Button";
 import { Input } from "./Input";
 import { Checkbox } from "./Checkbox";
+import Video from "./Video";
 
 function user() {
   return ({
@@ -96,6 +97,8 @@ function App() {
           ))
         )
       }
+      <hr />
+      <Video />
     </div>
   )
 }
