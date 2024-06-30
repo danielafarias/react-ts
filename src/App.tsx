@@ -4,6 +4,7 @@ import { Input } from "./Input";
 
 function App() {
   const [total, setTotal] = React.useState(0);
+  const [date, setDate] = React.useState("");
 
   function increment() {
     setTotal((total) => total + 1);
@@ -14,7 +15,12 @@ function App() {
       <p>Total: {total}</p>
       <Button className="btn" id="main-btn" size="1.5rem" onClick={increment}>Incrementar</Button>
       <hr />
-      <Input className="main-input" label="input"/>
+      <p>Data: {date}</p>
+      <Input id="name" label="Nome" />
+      <Input id="email" label="E-mail" type="email" />
+      <Input id="date" label="Data" type="date" value={date} onChange={(e) => setDate(e.currentTarget.value)} />
+      <Input id="email" label="E-mail" type="email" />
+      <Input id="hour" label="Hora" type="time" />
     </div>
   )
 }
