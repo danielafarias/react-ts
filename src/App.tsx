@@ -6,14 +6,15 @@ function App() {
   const [total, setTotal] = React.useState(0);
   const [date, setDate] = React.useState("");
 
-  function increment() {
+  const increment: React.MouseEventHandler = (event) => {
+    console.log(event.pageX);
     setTotal((total) => total + 1);
   }
 
   return (
     <div>
       <p>Total: {total}</p>
-      <Button className="btn" id="main-btn" size="1.5rem" onClick={increment}>Incrementar</Button>
+      <Button className="btn" id="main-btn" size="1.5rem" onClick={(event) => increment(event)}>Incrementar</Button>
       <hr />
       <p>Data: {date}</p>
       <Input id="name" label="Nome" />
