@@ -14,7 +14,7 @@ function App() {
   return (
     <div>
       <p>Total: {total}</p>
-      <Button className="btn" id="main-btn" size="1.5rem" onClick={(event) => increment(event)}>Incrementar</Button>
+      <Button className="btn" id="main-btn" size="1.5rem" total={total} setTotal={setTotal}>Incrementar</Button>
       <hr />
       <p>Data: {date}</p>
       <Input id="name" label="Nome" />
