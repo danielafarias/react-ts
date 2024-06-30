@@ -1,6 +1,7 @@
 import React from "react"
 import Button from "./Button";
 import { Input } from "./Input";
+import { Checkbox } from "./Checkbox";
 
 function App() {
   const [total, setTotal] = React.useState(0);
@@ -22,6 +23,8 @@ function App() {
       <Input id="date" label="Data" type="date" value={date} onChange={(e) => setDate(e.currentTarget.value)} />
       <Input id="email" label="E-mail" type="email" />
       <Input id="hour" label="Hora" type="time" />
+      <hr/>
+      <Checkbox label="Termos e Condições" />
     </div>
   )
 }
