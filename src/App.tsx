@@ -3,14 +3,33 @@ import Button from "./Button";
 import { Input } from "./Input";
 import { Checkbox } from "./Checkbox";
 
+function user() {
+  return ({
+    name: "Daniela",
+    profession: "Programadora"
+  });
+}
+
+type User = {
+  name: string;
+  profession: string;
+}
+
 function App() {
   const [total, setTotal] = React.useState(0);
   const [date, setDate] = React.useState("");
+  const [userData, setUserData] = React.useState<null | User>(null);
 
   const increment: React.MouseEventHandler = (event) => {
     console.log(event.pageX);
     setTotal((total) => total + 1);
   }
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setUserData(user());
+    }, 1000);
+  }, [])
 
   return (
     <div>
@@ -23,8 +42,15 @@ function App() {
       <Input id="date" label="Data" type="date" value={date} onChange={(e) => setDate(e.currentTarget.value)} />
       <Input id="email" label="E-mail" type="email" />
       <Input id="hour" label="Hora" type="time" />
-      <hr/>
+      <hr />
       <Checkbox label="Termos e Condições" />
+      <hr />
+      {userData !== null &&
+        <div>
+          <p>Nome: {userData.name}</p>
+          <p>Profissão: {userData.profession}</p>
+        </div>
+      }
     </div>
   )
 }
