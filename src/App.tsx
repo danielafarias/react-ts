@@ -15,21 +15,52 @@ type User = {
   profession: string;
 }
 
+type Sell =  {
+  id: string;
+  nome: string;
+  preco: number;
+  status: string;
+  pagamento: string;
+  parcelas: null | number;
+  data: string;
+}
+
 function App() {
   const [total, setTotal] = React.useState(0);
   const [date, setDate] = React.useState("");
   const [userData, setUserData] = React.useState<null | User>(null);
+  const [initialDate, setInitialDate] = React.useState("");
+  const [finalDate, setFinalDate] = React.useState("");
+  const [sellData, setSellData] = React.useState<null | Sell[]>(null);
 
   const increment: React.MouseEventHandler = (event) => {
     console.log(event.pageX);
     setTotal((total) => total + 1);
   }
 
+
   React.useEffect(() => {
     setTimeout(() => {
       setUserData(user());
     }, 1000);
   }, [])
+
+  React.useEffect(() => {
+    if (initialDate !== null && finalDate !== null) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`https://data.origamid.dev/vendas/?inicio=${initialDate}&final=${finalDate}`);
+          
+          const data: Sell[] = await response.json();
+          setSellData(data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      fetchData();
+    }
+  }, [initialDate, finalDate]);
 
   return (
     <div>
@@ -50,6 +81,20 @@ function App() {
           <p>Nome: {userData.name}</p>
           <p>Profissão: {userData.profession}</p>
         </div>
+      }
+      <hr />
+      <Input id="date" label="Início" type="date" value={initialDate} onChange={(e) => setInitialDate(e.currentTarget.value)} />
+      <Input id="date" label="Final" type="date" value={finalDate} onChange={(e) => setFinalDate(e.currentTarget.value)} />
+      {
+        sellData !== null && 
+        (
+          sellData.map(sell => (
+          <div>
+            <p>Nome: {sell.nome}</p>
+            <p>Preço: {sell.preco}</p>
+          </div>
+          ))
+        )
       }
     </div>
   )
