@@ -1,6 +1,6 @@
 import React from "react"
 import Button from "./Button";
-import { Input } from "./Input";
+import Input from "./Input";
 import { Checkbox } from "./Checkbox";
 import Video from "./Video";
 import useFetch from "./useFetch";
@@ -8,6 +8,7 @@ import { UiContextProvider } from "./UiContext";
 import Header from "./Header";
 import Content from "./Content";
 import { UserContextProvider } from "./UserContext";
+import Form from "./Form";
 
 function user() {
   return ({
@@ -90,6 +91,8 @@ function App() {
       <UserContextProvider>
         <Header />
         <Content />
+        <hr />
+        <Form />
         <hr />
         <p>Total: {total}</p>
         <Button className="btn" id="main-btn" size="1.5rem" total={total} setTotal={setTotal}>Incrementar</Button>

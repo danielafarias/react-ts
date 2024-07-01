@@ -5,7 +5,7 @@ type InputProps = React.ComponentProps<"input"> & {
     id: string;
 }; 
 
-export const Input = ({ label, id, ...rest }: InputProps) => {
+const Input = ({ label, id, ...rest }: InputProps) => {
   return (
     <div style={{ marginBottom: "1rem" }}>
         <label htmlFor={id}>{label}</label>
@@ -13,3 +13,5 @@ export const Input = ({ label, id, ...rest }: InputProps) => {
     </div>
   )
 }
+
+export default Input;
