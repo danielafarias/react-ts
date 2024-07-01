@@ -3,12 +3,16 @@ import { useUser } from './UserContext';
 
 const Header = () => {
   const { setDark } = useUi();
-  const { data } = useUser();
+  const { data, loading } = useUser();
 
   return (
     <div>
         <button onClick={() => setDark((d) => !d)}>Tema</button>
-        <p>Nome: {data?.nome}</p>
+        {loading ? <p>Carregando...</p> 
+            : (
+                data && <p>Nome: {data.nome}</p>
+            )
+        }
     </div>
   );
 };

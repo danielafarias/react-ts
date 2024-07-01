@@ -10,11 +10,11 @@ type User = {
     preferencias: {
       playback: number;
       volume: number;
-      qualidade: string;
+      qualidade: "baixa" | "média" | "alta";
     }
   }
 
-interface IUserContext {
+type IUserContext = {
     data: User | null;
     loading: boolean;
     error: string | null;

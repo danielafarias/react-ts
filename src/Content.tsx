@@ -14,18 +14,22 @@ const Content = () => {
       }}
     >
       Esse é um teste do tema.
-      <p>Preferências</p>
-      <ul>
-        <li>
-            Playback: {data?.preferencias.playback}
-        </li>
-        <li>
-            Qualidade: {data?.preferencias.qualidade}
-        </li>
-        <li>
-            Volume: {data?.preferencias.volume}
-        </li>
-      </ul>
+      {data &&
+        <div>
+            <p>Preferências</p>
+            <ul>
+                <li>
+                    Playback: {data.preferencias.playback}
+                </li>
+                <li>
+                    Qualidade: {data.preferencias.qualidade}
+                </li>
+                <li>
+                    Volume: {data.preferencias.volume}
+                </li>
+            </ul>
+        </div>
+      }
     </div>
   );
 };
