@@ -27,6 +27,17 @@ type Sell =  {
   data: string;
 }
 
+type Product = {
+  id: string;
+  nome: string;
+  descricao: string;
+  quantidade: number;
+  preco: number;
+  internacional: boolean;
+};
+
+const PRODUCTS_URL = 'https://data.origamid.dev/produtos';
+
 function App() {
   const [total, setTotal] = React.useState(0);
   const [date, setDate] = React.useState("");
@@ -34,6 +45,7 @@ function App() {
   const [initialDate, setInitialDate] = React.useState("");
   const [finalDate, setFinalDate] = React.useState("");
   const [sellData, setSellData] = React.useState<null | Sell[]>(null);
+  const [productId, setProductId] = React.useState("");
 
   const increment: React.MouseEventHandler = (event) => {
     console.log(event.pageX);
@@ -64,11 +76,10 @@ function App() {
     }
   }, [initialDate, finalDate]);
 
-  const a = useFetch("https://data.origamid.dev/produtos");
-
-  React.useEffect(() => {
-    console.log(a)
-  }, [a]);
+  const products = useFetch<Product[]>(PRODUCTS_URL);
+  const product = useFetch<Product>(`${PRODUCTS_URL}/${productId}`, {
+    cache: "force-cache"
+  });
 
   return (
     <div>
@@ -106,6 +117,29 @@ function App() {
       }
       <hr />
       <Video />
+      <hr />
+      <div className="flex">
+        <div>
+          {
+            products.data && 
+            products.data.map(product => 
+              <button key={product.id} onClick={() => setProductId(product.id)}>{product.id}</button>
+            )
+          }
+        </div>
+        <div>
+          {
+            product.loading ? <div>Loading...</div> :
+            (
+              product.data &&
+              <ul>
+                <li>Nome: {product.data.nome}</li>
+                <li>Preço: {product.data.preco}</li>
+              </ul>
+            )
+          }
+        </div>
+      </div>
     </div>
   )
 }
