@@ -4,6 +4,10 @@ import { Input } from "./Input";
 import { Checkbox } from "./Checkbox";
 import Video from "./Video";
 import useFetch from "./useFetch";
+import { UiContextProvider } from "./UiContext";
+import Header from "./Header";
+import Content from "./Content";
+import { UserContextProvider } from "./UserContext";
 
 function user() {
   return ({
@@ -82,65 +86,70 @@ function App() {
   });
 
   return (
-    <div>
-      <p>Total: {total}</p>
-      <Button className="btn" id="main-btn" size="1.5rem" total={total} setTotal={setTotal}>Incrementar</Button>
-      <hr />
-      <p>Data: {date}</p>
-      <Input id="name" label="Nome" />
-      <Input id="email" label="E-mail" type="email" />
-      <Input id="date" label="Data" type="date" value={date} onChange={(e) => setDate(e.currentTarget.value)} />
-      <Input id="email" label="E-mail" type="email" />
-      <Input id="hour" label="Hora" type="time" />
-      <hr />
-      <Checkbox label="Termos e Condições" />
-      <hr />
-      {userData !== null &&
-        <div>
-          <p>Nome: {userData.name}</p>
-          <p>Profissão: {userData.profession}</p>
-        </div>
-      }
-      <hr />
-      <Input id="date" label="Início" type="date" value={initialDate} onChange={(e) => setInitialDate(e.currentTarget.value)} />
-      <Input id="date" label="Final" type="date" value={finalDate} onChange={(e) => setFinalDate(e.currentTarget.value)} />
-      {
-        sellData !== null && 
-        (
-          sellData.map(sell => (
+    <UiContextProvider>
+      <UserContextProvider>
+        <Header />
+        <Content />
+        <hr />
+        <p>Total: {total}</p>
+        <Button className="btn" id="main-btn" size="1.5rem" total={total} setTotal={setTotal}>Incrementar</Button>
+        <hr />
+        <p>Data: {date}</p>
+        <Input id="name" label="Nome" />
+        <Input id="email" label="E-mail" type="email" />
+        <Input id="date" label="Data" type="date" value={date} onChange={(e) => setDate(e.currentTarget.value)} />
+        <Input id="email" label="E-mail" type="email" />
+        <Input id="hour" label="Hora" type="time" />
+        <hr />
+        <Checkbox label="Termos e Condições" />
+        <hr />
+        {userData !== null &&
           <div>
-            <p>Nome: {sell.nome}</p>
-            <p>Preço: {sell.preco}</p>
+            <p>Nome: {userData.name}</p>
+            <p>Profissão: {userData.profession}</p>
           </div>
-          ))
-        )
-      }
-      <hr />
-      <Video />
-      <hr />
-      <div className="flex">
-        <div>
-          {
-            products.data && 
-            products.data.map(product => 
-              <button key={product.id} onClick={() => setProductId(product.id)}>{product.id}</button>
-            )
-          }
+        }
+        <hr />
+        <Input id="date" label="Início" type="date" value={initialDate} onChange={(e) => setInitialDate(e.currentTarget.value)} />
+        <Input id="date" label="Final" type="date" value={finalDate} onChange={(e) => setFinalDate(e.currentTarget.value)} />
+        {
+          sellData !== null && 
+          (
+            sellData.map(sell => (
+            <div>
+              <p>Nome: {sell.nome}</p>
+              <p>Preço: {sell.preco}</p>
+            </div>
+            ))
+          )
+        }
+        <hr />
+        <Video />
+        <hr />
+        <div className="flex">
+          <div>
+            {
+              products.data && 
+              products.data.map(product => 
+                <button key={product.id} onClick={() => setProductId(product.id)}>{product.id}</button>
+              )
+            }
+          </div>
+          <div>
+            {
+              product.loading ? <div>Loading...</div> :
+              (
+                product.data &&
+                <ul>
+                  <li>Nome: {product.data.nome}</li>
+                  <li>Preço: {product.data.preco}</li>
+                </ul>
+              )
+            }
+          </div>
         </div>
-        <div>
-          {
-            product.loading ? <div>Loading...</div> :
-            (
-              product.data &&
-              <ul>
-                <li>Nome: {product.data.nome}</li>
-                <li>Preço: {product.data.preco}</li>
-              </ul>
-            )
-          }
-        </div>
-      </div>
-    </div>
+      </UserContextProvider>
+    </UiContextProvider>
   )
 }
 
