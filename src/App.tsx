@@ -3,6 +3,7 @@ import Button from "./Button";
 import { Input } from "./Input";
 import { Checkbox } from "./Checkbox";
 import Video from "./Video";
+import useFetch from "./useFetch";
 
 function user() {
   return ({
@@ -62,6 +63,12 @@ function App() {
       fetchData();
     }
   }, [initialDate, finalDate]);
+
+  const a = useFetch("https://data.origamid.dev/produtos");
+
+  React.useEffect(() => {
+    console.log(a)
+  }, [a]);
 
   return (
     <div>
